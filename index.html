@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3-Proyecto Base</title>
+  <script type="module" src="./src/app.js"></script>
+  <link rel="stylesheet" href="./styles/style.css">
+</head>
+
+<body>
+  <div id="renderScene">
+    <div id="backBtn"><b>Volver</b></div>
+    <div id="createCubeBtn"><b>Crear un cubo</b></div>
+    <div id="createSphereBtn"><b>Crear una esfera</b></div>
+    <div id="createAmbientLightBtn"><b>Crear luz ambiental</b></div> 
+    <div id="createDirectionalLightBtn"><b>Crear luz direccional</b></div> 
+    <div id="createPointLightBtn"><b>Crear punto de luz</b></div> 
+    <div id="createSpotLightBtn"><b>Crear foco de luz</b></div> 
+  </div>
+  <div id="content"> 
+    <div class="btnOption small" data-size="10">
+      <div class="title"><b>Pequeño</b><br></div>
+      <span>10x10</span>
+    </div>
+    <div class="btnOption medium" data-size="20">
+      <div class="title"><b>Mediano</b><br></div>
+      <span>20x20</span>
+    </div>
+    <div class="btnOption big" data-size="40">
+      <div class="title"><b>Grande</b><br></div>
+      <span>40x40</span>
+    </div>
+    <div class="btnOption random" id="sendData">
+      <div class="title"><b>Definir</b><br></div>
+      <span>(Presione "tab" para ingresar un número)</span>
+      <div id="customBtn">
+        <input type="text" name="" id="customInput">
+        <div id=""><span>Confirmar</span></div>
+      </div>
+    </div>
+  </div>
+  <script type="module">
+    import { main, 
+             reset, 
+             cleanGUI, 
+             createCubeGeneric, 
+             createSphereGeneric, 
+             createAmbientLightGeneric, 
+             createDirectionalLightGeneric,
+             createPointLightGeneric, 
+             createSpotLightGeneric } from './src/app.js';
+
+    const options = document.querySelectorAll('.btnOption');
+    const content = document.querySelector('#content');
+    const backBtn = document.querySelector('#backBtn');
+    const createCubeBtn = document.querySelector('#createCubeBtn');
+    const createSphereBtn = document.querySelector('#createSphereBtn');
+    const createAmbientLightBtn = document.querySelector('#createAmbientLightBtn');
+    const createDirectionalLightBtn = document.querySelector('#createDirectionalLightBtn');
+    const createPointLightBtn = document.querySelector('#createPointLightBtn');
+    const createSpotLightBtn = document.querySelector('#createSpotLightBtn');
+
+    let size = 10;
+
+    options.forEach(optionSelected => {
+      optionSelected.onclick = function(){
+        const optionSize = this.dataset.size;
+        size = optionSize;
+        toogleContent();
+        main(size);
+      }
+    });
+
+    backBtn.onclick = function(){
+      toogleContent();
+      cleanGUI();
+      reset();
+    }
+    
+    createCubeBtn.onclick = function(){
+      createCubeGeneric();
+    }
+
+    createSphereBtn.onclick = function(){
+      createSphereGeneric();
+    }
+
+    createDirectionalLightBtn.onclick = function(){
+      createDirectionalLightGeneric();
+    }
+
+    createAmbientLightBtn.onclick = function(){
+      createAmbientLightGeneric();
+    }
+
+    createPointLightBtn.onclick = function(){
+      createPointLightGeneric();
+    }
+
+    createSpotLightBtn.onclick = function(){
+      createSpotLightGeneric();
+    }
+
+    sendData.onclick = function(){
+      let Confirmar = document.getElementById("customInput").value;
+      size = Confirmar;
+
+      main(size);
+      toogleContent();
+    }
+
+    function toogleContent (){
+      content.style.display = content.style.display == 'none' ? 'flex' : 'none';
+    }
+  </script>
+</body>
+
+</html>
